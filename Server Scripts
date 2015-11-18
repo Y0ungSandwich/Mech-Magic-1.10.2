@@ -1,0 +1,75 @@
+## Example of the script(s) we use to control the Official Server ##
+
+The Official server is fully automated with restarts every 4 hours, backups every 3 hours, saves ever 25 minutes, and an 
+offline check every 5 minutes. 
+
+The server(s) are started with Screen and scheduled with CRON
+
+start.sh (below) starts a new Screen, starts the server, then cleans up logs and crash reports older than 4 days.
+-------------------------------------------------------
+#!/bin/bash
+# Minecraft
+# MechMagic 
+# Author: Cuppycake
+# http://bloxhub.com
+# @Cuppycakegaming
+[ $USER = "root" ] && echo 'WARNING Do Not Run This Script As Root!' && exit 1
+
+#Launch from server file directory
+screen -d -m -S mm -t world -d -m /directory/path/cauldron_start.sh
+
+#Purge Crash Reports older than 4 days
+find /directory/path/crash-reports -mmin +5760 -exec rm {} \;
+
+#Purge Logs older than 4 days
+find /directory/path/logs -mmin +5760 -exec rm {} \;
+-------------------------------------------------------
+
+
+cauldron_start.sh (below) is where the server starts up according to given java parameters/flags
+-------------------------------------------------------
+#!/bin/sh
+###mm###
+###Create Java Virtual Machine###
+java  -Xincgc -Xms12G -XX:+AggressiveOpts -jar cauldronserver.jar nogui
+-------------------------------------------------------
+
+restart.sh (below) is called every 4 hours and auto restarts the server.
+-------------------------------------------------------
+#!/bin/bash
+# Minecraft AutoRestart
+
+
+echo "Initiating Auto Restart for server MM"
+screen -S mm -p world -X stuff "say ###Auto Restart - Starting###"`echo -ne '\015'`
+sleep 1
+screen -S mm -p world -X stuff "say # Restart in 3 Minutes!"`echo -ne '\015'`
+sleep 60
+screen -S mm -p world -X stuff "say # Restart in 2 Minutes!"`echo -ne '\015'`
+sleep 60
+screen -S mm -p world -X stuff "say # Restart in 1 Minute!"`echo -ne '\015'`
+sleep 50
+screen -S mm -p world -X stuff "say # Restart in 10 Seconds! You should log off!"`echo -ne '\015'`
+screen -S mm -p world -X stuff "save-all"`echo -ne '\015'`
+sleep 5
+screen -S mm -p world -X stuff "stop"`echo -ne '\015'`
+sleep 20
+echo "This script is about to run another script."
+sh ./start.sh
+echo "This script has just run another script"
+-------------------------------------------------------
+
+saveall.sh (below) saves the instance at intervals of 25 minutes.
+-------------------------------------------------------
+#!/bin/bash
+#Minecraft save-all
+
+
+echo "Initiatiing Save-All for MechMagic"
+screen -S mm -p world -X stuff "save-all"`echo -ne '\015'`
+sleep 2
+screen -S mm -p world -X stuff "say Auto Save Complete"`echo -ne '\015'`
+-------------------------------------------------------
+
+
+
