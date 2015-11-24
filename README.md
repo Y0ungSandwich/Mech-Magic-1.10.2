@@ -9,6 +9,6 @@ Pack Author:
 CuppyCake
 
 
-Esper IRC: #mechmagic
+
 
 Twitter @MechMagic
