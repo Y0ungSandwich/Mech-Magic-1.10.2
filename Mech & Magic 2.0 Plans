@@ -2,7 +2,6 @@
 
 Balancing:
 Magical Crops
-Agricraft
 
 
 Mod Removal: Twilight Forest 
@@ -23,11 +22,13 @@ Replaced by: None
 Mod Removal: Pam's Harvest Craft
 Replaced by: Apples, Milk, Tea(?)
 
+Mod Removal: Agricraft
+Replaced by:" None
 
 Mod Addition: BiomesOP or similiar biome adding mod
 
 Config Tweaks:
-Remove Magical crops compat. frim Agricraft(If agricraft isnt removed)
+
 
 Any tool/armor made of Lumium/Glowstone add to lighting configs of Dynamic Lighting
 
