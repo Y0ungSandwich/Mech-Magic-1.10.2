@@ -10,7 +10,7 @@ for this pack is 4GB. Do not report issues without checking that you are running
 Pack Author:
 Y0ungSandwich
 Pack Developers:
-IRoomI, Eforen
+IRoomI
 
 
 
